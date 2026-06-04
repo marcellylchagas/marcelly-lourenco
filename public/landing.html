@@ -716,18 +716,37 @@
     .avulso-card h4 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--black); margin-bottom: .35rem; }
     .avulso-card p { font-size: .8rem; color: var(--gray); line-height: 1.65; }
 
-    /* CTA serviços */
-    .servicos-cta {
-      text-align: center;
+    /* CTA serviços — dois quadros */
+    .servicos-cta-grid {
       margin-top: 3.5rem;
-      padding: 2.8rem 2rem;
-      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.6rem;
+    }
+    .servicos-cta-card {
+      padding: 2.6rem 2.2rem;
+      background: var(--white);
       border: 1px solid var(--border);
       border-radius: var(--r-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
     }
-    .servicos-cta p { font-size: .98rem; color: var(--gray-d); margin-bottom: 1.4rem; line-height: 1.7; }
-    .servicos-cta strong { color: var(--black); }
-    .servicos-cta-btns { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .servicos-cta-card:hover { transform: translateY(-4px); box-shadow: var(--sh-card); border-color: var(--rose-ll); }
+    .servicos-cta-card.dark { background: var(--black); border-color: var(--charcoal); }
+    .servicos-cta-card .cta-eyebrow {
+      font-size: .7rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--rose);
+    }
+    .servicos-cta-card.dark .cta-eyebrow { color: var(--rose-l); }
+    .servicos-cta-card h3 {
+      font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; line-height: 1.2; color: var(--black);
+    }
+    .servicos-cta-card.dark h3 { color: var(--white); }
+    .servicos-cta-card p { font-size: .94rem; color: var(--gray-d); line-height: 1.7; }
+    .servicos-cta-card.dark p { color: var(--gray-l); }
+    .servicos-cta-card .btn { align-self: flex-start; margin-top: auto; }
+    @media (max-width: 768px) { .servicos-cta-grid { grid-template-columns: 1fr; } }
 
     /* ================================
        CONTATO
