@@ -1911,6 +1911,65 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
+  /* CASES CAROUSEL */
+  (function() {
+    const track = document.getElementById('casesTrack');
+    const prev = document.getElementById('casesPrev');
+    const next = document.getElementById('casesNext');
+    const dotsWrap = document.getElementById('casesDots');
+    if (!track || !prev || !next) return;
+    const cards = track.querySelectorAll('.case-card');
+    let index = 0;
+
+    function perView() {
+      const w = window.innerWidth;
+      if (w <= 560) return 1;
+      if (w <= 768) return 2;
+      if (w <= 1024) return 3;
+      return 4;
+    }
+    function maxIndex() { return Math.max(0, cards.length - perView()); }
+    function update() {
+      if (index > maxIndex()) index = maxIndex();
+      const card = cards[0];
+      if (!card) return;
+      const style = getComputedStyle(track);
+      const gap = parseFloat(style.gap) || 24;
+      const step = card.getBoundingClientRect().width + gap;
+      track.style.transform = `translateX(${-index * step}px)`;
+      prev.disabled = index <= 0;
+      next.disabled = index >= maxIndex();
+      renderDots();
+    }
+    function renderDots() {
+      const total = maxIndex() + 1;
+      dotsWrap.innerHTML = '';
+      for (let i = 0; i < total; i++) {
+        const b = document.createElement('button');
+        b.className = 'cases-dot' + (i === index ? ' active' : '');
+        b.setAttribute('aria-label', 'Ir para slide ' + (i+1));
+        b.addEventListener('click', () => { index = i; update(); });
+        dotsWrap.appendChild(b);
+      }
+    }
+    prev.addEventListener('click', () => { index = Math.max(0, index - 1); update(); });
+    next.addEventListener('click', () => { index = Math.min(maxIndex(), index + 1); update(); });
+    window.addEventListener('resize', update);
+
+    /* swipe touch */
+    let startX = 0, isDown = false;
+    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDown = true; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      if (!isDown) return; isDown = false;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (dx < -40) { index = Math.min(maxIndex(), index + 1); update(); }
+      else if (dx > 40) { index = Math.max(0, index - 1); update(); }
+    });
+
+    update();
+  })();
+
+
   /* CHATBOT */
   let chatOpen = false;
   function toggleChat() {
