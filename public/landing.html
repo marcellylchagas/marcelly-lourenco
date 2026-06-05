@@ -516,10 +516,62 @@
       gap: 1rem;
       margin-bottom: 3.5rem;
     }
+    .cases-carousel { position: relative; }
+    .cases-track-wrap { overflow: hidden; margin: 0 -.5rem; }
     .cases-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display: flex;
       gap: 1.5rem;
+      padding: .5rem;
+      scroll-behavior: smooth;
+      transition: transform .6s cubic-bezier(.22,1,.36,1);
+    }
+    .cases-grid .case-card {
+      flex: 0 0 calc((100% - 4.5rem) / 4);
+      min-width: 0;
+    }
+    .cases-arrow {
+      position: absolute;
+      top: 38%;
+      transform: translateY(-50%);
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 1px solid var(--border);
+      box-shadow: var(--sh-card);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--rose);
+      transition: var(--transition);
+      z-index: 5;
+    }
+    .cases-arrow:hover {
+      background: var(--rose);
+      color: var(--white);
+      transform: translateY(-50%) scale(1.08);
+      border-color: var(--rose);
+    }
+    .cases-arrow:disabled { opacity: .35; cursor: not-allowed; transform: translateY(-50%); }
+    .cases-arrow.prev { left: -28px; }
+    .cases-arrow.next { right: -28px; }
+    .cases-arrow svg { width: 22px; height: 22px; }
+    .cases-dots { display: flex; justify-content: center; gap: .55rem; margin-top: 2rem; }
+    .cases-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--rose-ll); border: none; cursor: pointer;
+      transition: var(--transition);
+    }
+    .cases-dot.active { background: var(--rose); width: 28px; border-radius: 99px; }
+    @media (max-width: 1024px) {
+      .cases-grid .case-card { flex: 0 0 calc((100% - 3rem) / 3); }
+      .cases-arrow.prev { left: -14px; } .cases-arrow.next { right: -14px; }
+    }
+    @media (max-width: 768px) {
+      .cases-grid .case-card { flex: 0 0 calc((100% - 1.5rem) / 2); }
+    }
+    @media (max-width: 560px) {
+      .cases-grid .case-card { flex: 0 0 100%; }
+      .cases-arrow { width: 44px; height: 44px; }
+      .cases-arrow.prev { left: 4px; } .cases-arrow.next { right: 4px; }
     }
     .case-card {
       background: var(--white);
