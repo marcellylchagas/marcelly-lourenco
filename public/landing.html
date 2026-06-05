@@ -516,10 +516,62 @@
       gap: 1rem;
       margin-bottom: 3.5rem;
     }
+    .cases-carousel { position: relative; }
+    .cases-track-wrap { overflow: hidden; margin: 0 -.5rem; }
     .cases-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display: flex;
       gap: 1.5rem;
+      padding: .5rem;
+      scroll-behavior: smooth;
+      transition: transform .6s cubic-bezier(.22,1,.36,1);
+    }
+    .cases-grid .case-card {
+      flex: 0 0 calc((100% - 4.5rem) / 4);
+      min-width: 0;
+    }
+    .cases-arrow {
+      position: absolute;
+      top: 38%;
+      transform: translateY(-50%);
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 1px solid var(--border);
+      box-shadow: var(--sh-card);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--rose);
+      transition: var(--transition);
+      z-index: 5;
+    }
+    .cases-arrow:hover {
+      background: var(--rose);
+      color: var(--white);
+      transform: translateY(-50%) scale(1.08);
+      border-color: var(--rose);
+    }
+    .cases-arrow:disabled { opacity: .35; cursor: not-allowed; transform: translateY(-50%); }
+    .cases-arrow.prev { left: -28px; }
+    .cases-arrow.next { right: -28px; }
+    .cases-arrow svg { width: 22px; height: 22px; }
+    .cases-dots { display: flex; justify-content: center; gap: .55rem; margin-top: 2rem; }
+    .cases-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--rose-ll); border: none; cursor: pointer;
+      transition: var(--transition);
+    }
+    .cases-dot.active { background: var(--rose); width: 28px; border-radius: 99px; }
+    @media (max-width: 1024px) {
+      .cases-grid .case-card { flex: 0 0 calc((100% - 3rem) / 3); }
+      .cases-arrow.prev { left: -14px; } .cases-arrow.next { right: -14px; }
+    }
+    @media (max-width: 768px) {
+      .cases-grid .case-card { flex: 0 0 calc((100% - 1.5rem) / 2); }
+    }
+    @media (max-width: 560px) {
+      .cases-grid .case-card { flex: 0 0 100%; }
+      .cases-arrow { width: 44px; height: 44px; }
+      .cases-arrow.prev { left: 4px; } .cases-arrow.next { right: 4px; }
     }
     .case-card {
       background: var(--white);
@@ -975,7 +1027,7 @@
       .segmentos-grid { grid-template-columns: repeat(3, 1fr); }
       .footer-inner { grid-template-columns: 1fr 1fr; }
       .planos-grid { grid-template-columns: 1fr; }
-      .cases-grid { grid-template-columns: repeat(3, 1fr); }
+      
       .contato-inner { grid-template-columns: 1fr; gap: 2.5rem; max-width: 720px; margin: 0 auto; }
     }
     @media (max-width: 768px) {
@@ -987,7 +1039,7 @@
       .hero-title { font-size: 2.6rem; }
       .sobre-inner { grid-template-columns: 1fr; gap: 3rem; }
       .sobre-accent { position: static; margin-top: 1.5rem; }
-      .cases-grid { grid-template-columns: 1fr 1fr; }
+      
       .segmentos-grid { grid-template-columns: 1fr 1fr; }
       .processo-grid { grid-template-columns: 1fr 1fr; }
       .processo-grid::before { display: none; }
@@ -1002,7 +1054,7 @@
       .servicos-cta-btns { flex-direction: column; align-items: center; }
     }
     @media (max-width: 480px) {
-      .cases-grid { grid-template-columns: 1fr; }
+      
       .segmentos-grid { grid-template-columns: 1fr 1fr; }
       .processo-grid { grid-template-columns: 1fr; }
     }
@@ -1172,7 +1224,15 @@
       <h2 class="section-title">Cases que <em>mostram</em> o que é possível</h2>
       <p class="section-sub">Cada projeto aqui foi construído com intenção. São marcas reais, com donos reais, que decidiram que era hora de aparecer de verdade.</p>
     </div>
-    <div class="cases-grid">
+    <div class="cases-carousel reveal">
+      <button class="cases-arrow prev" id="casesPrev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button class="cases-arrow next" id="casesNext" aria-label="Próximo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+      <div class="cases-track-wrap">
+    <div class="cases-grid" id="casesTrack">
       <div class="case-card reveal">
         <div class="case-img">
           <img src="case-eder-marcio.jpeg" alt="Identidade visual — Eder Marcio" />
@@ -1261,6 +1321,9 @@
           <p>Aplicativo web com interface personalizada e funcionamento limpo — uma experiência fluida, fácil de navegar e totalmente alinhada à marca.</p>
         </div>
       </div>
+    </div>
+      </div>
+      <div class="cases-dots" id="casesDots"></div>
     </div>
   </div>
 </section>
@@ -1847,6 +1910,65 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  /* CASES CAROUSEL */
+  (function() {
+    const track = document.getElementById('casesTrack');
+    const prev = document.getElementById('casesPrev');
+    const next = document.getElementById('casesNext');
+    const dotsWrap = document.getElementById('casesDots');
+    if (!track || !prev || !next) return;
+    const cards = track.querySelectorAll('.case-card');
+    let index = 0;
+
+    function perView() {
+      const w = window.innerWidth;
+      if (w <= 560) return 1;
+      if (w <= 768) return 2;
+      if (w <= 1024) return 3;
+      return 4;
+    }
+    function maxIndex() { return Math.max(0, cards.length - perView()); }
+    function update() {
+      if (index > maxIndex()) index = maxIndex();
+      const card = cards[0];
+      if (!card) return;
+      const style = getComputedStyle(track);
+      const gap = parseFloat(style.gap) || 24;
+      const step = card.getBoundingClientRect().width + gap;
+      track.style.transform = `translateX(${-index * step}px)`;
+      prev.disabled = index <= 0;
+      next.disabled = index >= maxIndex();
+      renderDots();
+    }
+    function renderDots() {
+      const total = maxIndex() + 1;
+      dotsWrap.innerHTML = '';
+      for (let i = 0; i < total; i++) {
+        const b = document.createElement('button');
+        b.className = 'cases-dot' + (i === index ? ' active' : '');
+        b.setAttribute('aria-label', 'Ir para slide ' + (i+1));
+        b.addEventListener('click', () => { index = i; update(); });
+        dotsWrap.appendChild(b);
+      }
+    }
+    prev.addEventListener('click', () => { index = Math.max(0, index - 1); update(); });
+    next.addEventListener('click', () => { index = Math.min(maxIndex(), index + 1); update(); });
+    window.addEventListener('resize', update);
+
+    /* swipe touch */
+    let startX = 0, isDown = false;
+    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; isDown = true; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      if (!isDown) return; isDown = false;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (dx < -40) { index = Math.min(maxIndex(), index + 1); update(); }
+      else if (dx > 40) { index = Math.max(0, index - 1); update(); }
+    });
+
+    update();
+  })();
+
 
   /* CHATBOT */
   let chatOpen = false;
