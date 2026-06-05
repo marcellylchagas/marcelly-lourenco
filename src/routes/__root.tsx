@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Marcelly Lourenço | Social Media • Design • Branding" },
+      { name: "description", content: "Direct HTML Import allows users to import and customize HTML content for web pages." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Marcelly Lourenço | Social Media • Design • Branding" },
+      { property: "og:description", content: "Direct HTML Import allows users to import and customize HTML content for web pages." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Marcelly Lourenço | Social Media • Design • Branding" },
+      { name: "twitter:description", content: "Direct HTML Import allows users to import and customize HTML content for web pages." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/244c0f43-3ce4-4883-9c0c-cd266ff8de9c/id-preview-401573e5--7efd5e70-914d-4201-9517-73f0f8fbe547.lovable.app-1780670040868.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/244c0f43-3ce4-4883-9c0c-cd266ff8de9c/id-preview-401573e5--7efd5e70-914d-4201-9517-73f0f8fbe547.lovable.app-1780670040868.png" },
     ],
     links: [
       {
