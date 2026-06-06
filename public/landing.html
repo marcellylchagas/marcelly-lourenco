@@ -900,6 +900,16 @@
     }
     .briefing-form .fg select option { background: #2A2420; color: var(--white); }
     .briefing-form .fg select { color: var(--white); }
+    .servicos-check-grid { display: flex; flex-direction: column; gap: 1.4rem; margin-top: .4rem; }
+    .servicos-check-group { display: flex; flex-direction: column; gap: .5rem; padding: 1rem 1.1rem; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: var(--r-md); }
+    .servicos-check-label { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--rose-l); font-weight: 700; margin-bottom: .3rem; }
+    .check-item { display: flex; align-items: center; gap: .65rem; cursor: pointer; font-size: .88rem; color: var(--gray-l); padding: .35rem .2rem; border-radius: 6px; transition: var(--transition); }
+    .check-item:hover { color: var(--white); }
+    .check-item input[type="checkbox"] { appearance: none; -webkit-appearance: none; width: 18px; height: 18px; border: 1.5px solid rgba(255,255,255,.25); border-radius: 4px; background: rgba(255,255,255,.04); cursor: pointer; position: relative; flex-shrink: 0; transition: var(--transition); }
+    .check-item input[type="checkbox"]:hover { border-color: var(--rose); }
+    .check-item input[type="checkbox"]:checked { background: var(--rose); border-color: var(--rose); }
+    .check-item input[type="checkbox"]:checked::after { content: '✓'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: .8rem; font-weight: 700; }
+    .check-item input[type="checkbox"]:checked + span { color: var(--white); }
 
     /* ================================
        FOOTER
