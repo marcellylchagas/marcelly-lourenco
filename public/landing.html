@@ -630,7 +630,7 @@
     .segmentos-header .section-title { color: var(--white); }
     .segmentos-header .section-sub { color: var(--gray-l); }
     .segmentos-header .tag { background: rgba(184,117,94,.1); border-color: rgba(184,117,94,.25); color: var(--rose-l); }
-    .segmentos-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: rgba(255,255,255,.06); border-radius: var(--r-md); overflow: hidden; }
+    .segmentos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,.06); border-radius: var(--r-md); overflow: hidden; }
     .segmento-card {
       background: rgba(255,255,255,.02);
       padding: 2.5rem 1.5rem;
@@ -1354,11 +1354,6 @@
         <h3>Saúde e Bem-Estar</h3>
         <p>Nutricionistas, psicólogos, terapeutas e profissionais da saúde</p>
       </div>
-      <div class="segmento-card reveal d3">
-        <span class="segmento-icon">🛍️</span>
-        <h3>Lojas</h3>
-        <p>Lojas físicas e e-commerces que querem crescer com posicionamento estratégico</p>
-      </div>
       <div class="segmento-card reveal d4">
         <span class="segmento-icon">📍</span>
         <h3>Serviços Locais</h3>
@@ -1748,41 +1743,45 @@
               <option>Pet</option>
               <option>Estética e Beleza</option>
               <option>Saúde e Bem-Estar</option>
-              <option>Loja (física ou online)</option>
               <option>Serviços Locais</option>
             </select>
           </div>
           <div class="fg">
-            <label>Serviço desejado *</label>
-            <select name="servico" required>
-              <option value="">O que você precisa?</option>
-              <optgroup label="Pacotes">
-                <option>Plano Starter</option>
-                <option>Plano Performance</option>
-                <option>Plano Elite</option>
-              </optgroup>
-              <optgroup label="Social Media — Avulso">
-                <option>Planejamento Editorial</option>
-                <option>Redação Publicitária</option>
-                <option>Design de Alimentação</option>
-                <option>Gestão de Perfil</option>
-                <option>Relatório Mensal</option>
-                <option>Roteiro de Reels</option>
-              </optgroup>
-              <optgroup label="UI Design — Avulso">
-                <option>Landing Page / Página Inicial</option>
-                <option>Aplicativo (WEB + Android + Apple)</option>
-                <option>Identidade Visual</option>
-              </optgroup>
-              <optgroup label="Branding — Avulso">
-                <option>Estratégia de Marca</option>
-                <option>Identidade Verbal</option>
-                <option>Identidade Visual Completa</option>
-                <option>Branding Digital</option>
-              </optgroup>
-              <option>Montar pacote personalizado</option>
-              <option>Ainda não sei — quero orientação</option>
-            </select>
+            <label>Serviços desejados * <span style="color:var(--gray-l);font-weight:400;font-size:.8rem;">(selecione quantos quiser e monte seu pacote)</span></label>
+            <div class="servicos-check-grid">
+              <div class="servicos-check-group">
+                <span class="servicos-check-label">Pacotes Completos</span>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Plano Starter" /><span>Plano Starter</span></label>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Plano Performance" /><span>Plano Performance</span></label>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Plano Elite" /><span>Plano Elite</span></label>
+              </div>
+              <div class="servicos-check-group">
+                <span class="servicos-check-label">Social Media — Avulso</span>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Planejamento Editorial" /><span>Planejamento Editorial</span></label>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Redação Publicitária" /><span>Redação Publicitária</span></label>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Design de Alimentação" /><span>Design de Alimentação</span></label>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Gestão de Perfil" /><span>Gestão de Perfil</span></label>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Relatório Mensal" /><span>Relatório Mensal</span></label>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Roteiro de Reels" /><span>Roteiro de Reels</span></label>
+              </div>
+              <div class="servicos-check-group">
+                <span class="servicos-check-label">UI Design — Avulso</span>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Landing Page / Página Inicial" /><span>Landing Page / Página Inicial</span></label>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Aplicativo (WEB + Android + Apple)" /><span>Aplicativo (WEB + Android + Apple)</span></label>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Identidade Visual" /><span>Identidade Visual</span></label>
+              </div>
+              <div class="servicos-check-group">
+                <span class="servicos-check-label">Branding — Avulso</span>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Estratégia de Marca" /><span>Estratégia de Marca</span></label>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Identidade Verbal" /><span>Identidade Verbal</span></label>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Identidade Visual Completa" /><span>Identidade Visual Completa</span></label>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Branding Digital" /><span>Branding Digital</span></label>
+              </div>
+              <div class="servicos-check-group">
+                <span class="servicos-check-label">Outras opções</span>
+                <label class="check-item"><input type="checkbox" name="servicos[]" value="Ainda não sei — quero orientação" /><span>Ainda não sei — quero orientação</span></label>
+              </div>
+            </div>
           </div>
           <div class="fg">
             <label>Sobre seu negócio *</label>
