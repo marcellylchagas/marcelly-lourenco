@@ -2057,7 +2057,35 @@
       if (r.action) setTimeout(r.action, 700);
       if (r.opts && r.opts.length) setTimeout(() => addOpts(r.opts), 350);
     }, 450);
+
+  function enviarBriefingWhatsApp(e){
+    e.preventDefault();
+    const f = e.target;
+    const v = (n) => (f.elements[n]?.value || '').trim();
+    const servicos = Array.from(f.querySelectorAll('input[name="servicos[]"]:checked')).map(i=>i.value);
+    const linhas = [
+      '*Novo Briefing — Marcelly Lourenço* ✦','',
+      '*Nome:* ' + v('nome'),
+      '*WhatsApp:* ' + v('whatsapp'),
+      '*E-mail:* ' + v('email'),
+      '*Negócio:* ' + v('nome_negocio'),
+      '*Instagram:* ' + (v('instagram') || '-'),
+      '*Site:* ' + (v('site') || '-'),
+      '*Segmento:* ' + v('segmento'),
+      '*Serviços desejados:*',
+      servicos.length ? servicos.map(s=>'• '+s).join('\n') : '• (nenhum selecionado)',
+      '',
+      '*Sobre o negócio:*',
+      v('sobre_negocio'),
+      '',
+      '*Objetivo principal:*',
+      v('objetivo')
+    ];
+    const msg = encodeURIComponent(linhas.join('\n'));
+    window.open('https://wa.me/5524992429055?text=' + msg, '_blank');
+    return false;
   }
 </script>
+
 </body>
 </html>
